@@ -1,0 +1,15 @@
+<launch>
+	<node name="marker_server" type="interactive_vector_marker.py" pkg="robot_vector_control"/>
+	<node name="intersect_plane" pkg="world_intersect" type="intersect_plane.py">
+		<remap from="pose" to="head_pose"/>
+		<param name="plane_frame" value="base_footprint"/>
+	</node>
+
+	<!-- Nav -->
+
+	<node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
+		<rosparam file="$(find turtlebot_navigation)/param/local_costmap_params.yaml" command="load" ns="costmap" />
+	</node>
+
+	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+</launch>
