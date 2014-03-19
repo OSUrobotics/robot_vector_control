@@ -21,13 +21,13 @@ def makeBoxControl( msg ):
     msg.controls.append( control )
     return control
 
-def make6DofMarker(fixed, frame_id):
+def make6DofMarker(frame_id, fixed=False, description="Simple 6-DOF Control"):
     int_marker = InteractiveMarker()
     int_marker.header.frame_id = frame_id
     int_marker.scale = 1
 
     int_marker.name = "simple_6dof"
-    int_marker.description = "Simple 6-DOF Control"
+    int_marker.description = description
 
     # insert a box
     makeBoxControl(int_marker)

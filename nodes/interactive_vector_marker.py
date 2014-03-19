@@ -26,8 +26,8 @@ if __name__=="__main__":
 
     # create an interactive marker server on the topic namespace simple_marker
     server = InteractiveMarkerServer("simple_marker")
-    parent_frame_id = '/base_footprint'
-    server.insert(make6DofMarker(False, parent_frame_id), processFeedback)
+    parent_frame_id = '/odom'
+    server.insert(make6DofMarker(parent_frame_id, fixed=True), processFeedback)
 
     # 'commit' changes and send to all clients
     server.applyChanges()
