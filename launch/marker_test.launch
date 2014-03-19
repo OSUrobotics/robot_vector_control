@@ -5,11 +5,7 @@
 		<param name="plane_frame" value="base_footprint"/>
 	</node>
 
+	<node name="publish_goal_from_click" type="send_goal.py" pkg="robot_vector_control"/>
 	<!-- Nav -->
-
-	<node name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
-		<rosparam file="$(find turtlebot_navigation)/param/local_costmap_params.yaml" command="load" ns="costmap" />
-	</node>
-
-	<include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+	<include file="$(find robot_vector_control)/launch/turtlebot_move_base.launch"/>
 </launch>
