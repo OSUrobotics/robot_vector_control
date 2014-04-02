@@ -1,0 +1,24 @@
+<launch>
+	<!-- glass bridge params -->
+	<arg name="ip"/>
+	<arg name="port"/>
+	<arg name="use_glass" default="true"/>
+
+	<node name="marker_server" type="interactive_vector_marker.py" pkg="robot_vector_control" args="odom face_detection">
+		<param name="publish_pose" value="true" unless="$(arg use_glass)"/>
+		<param name="publish_pose" value="false"    if="$(arg use_glass)"/>
+	</node>
+
+	<node name="intersect_plane" pkg="world_intersect" type="intersect_plane.py">
+		<remap from="pose" to="head_pose"/>
+		<param name="plane_frame" value="base_footprint"/>
+	</node>
+
+	<node name="publish_goal_from_click" type="send_goal.py" pkg="robot_vector_control"/>
+
+	<!-- glass -->
+	<include file="$(find robot_vector_control)/launch/glass.launch" if="$(arg use_glass)">
+		<arg name="ip" value="$(arg ip)"/>
+		<arg name="port" value="$(arg port)"/>
+	</include>
+</launch>
