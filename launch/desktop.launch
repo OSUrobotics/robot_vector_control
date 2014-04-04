@@ -1,7 +1,7 @@
 <launch>
 	<!-- glass bridge params -->
-	<arg name="ip"/>
-	<arg name="port"/>
+	<arg name="ip" default="0.0.0.0"/>
+	<arg name="port" default="9999"/>
 	<arg name="use_glass" default="true"/>
 
 	<node name="marker_server" type="interactive_vector_marker.py" pkg="robot_vector_control" args="odom face_detection">
@@ -17,7 +17,7 @@
 	<node name="publish_goal_from_click" type="send_goal.py" pkg="robot_vector_control"/>
 
 	<!-- glass -->
-	<include file="$(find robot_vector_control)/launch/glass.launch" if="$(arg use_glass)">
+	<include file="$(find glass_ros_bridge)/launch/glass.launch" if="$(arg use_glass)">
 		<arg name="ip" value="$(arg ip)"/>
 		<arg name="port" value="$(arg port)"/>
 	</include>
